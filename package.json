@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@project-medusa/collector-utils": "^1.0.5",
+    "@project-medusa/collector-utils": "^1.0.7",
     "dotenv": "^8.2.0",
     "puppeteer": "^5.2.1"
   },
