@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const medusaUtils = require('../medusa-collector-utils');
+const medusaUtils = require('@project-medusa/collector-utils');
 
 const ParserImplementation = require(`./parsers/${process.env.AOI}`);
 
