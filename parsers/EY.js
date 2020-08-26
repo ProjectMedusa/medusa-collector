@@ -41,4 +41,14 @@ class EY extends Parser {
   }
 }
 
-module.exports = EY;
+function parseAerodromeString(line) {
+  const rx = new RegExp(`AD-2.(${this.aoi}[A-Z][A-Z])details`);
+  const id = line.getAttribute('id');
+  if (rx.test(id)) {
+    const match = id.match(rx);
+    return match[1];
+  }
+  return false;
+}
+
+module.exports = { ParserImplementation: EY, parseAerodromeString };
