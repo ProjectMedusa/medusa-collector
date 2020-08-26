@@ -2,8 +2,10 @@ require('dotenv').config();
 
 const medusaUtils = require('../medusa-collector-utils');
 
+const ParserImplementation = require(`./parsers/${process.env.AOI}`);
+
 const { createPage, getPage: page } = medusaUtils.Page;
-const { AirportCollector } = medusaUtils;
+const { AirportCollector, Collector } = medusaUtils;
 
 const aipSources = require('./data/aip-sources.js').sources;
 
@@ -14,9 +16,17 @@ const currentSource = aipSources.find((source) => source.country === process.env
   await page().goto(currentSource.menuLink);
 
   // Instantiate an AirportCollector Instance
-
   const airportCollector = new AirportCollector(process.env.AOI);
 
   // Find all covered airports by AOI's eAIP
   const airports = await airportCollector.findCoveredAirports();
+
+  // For each airport instantiate a Collector Instance
+
+  for (const airport of airports) {
+    const parser = new ParserImplementation(airport, currentSource.link);
+    const collector = new Collector(parser);
+
+    await collector.retriveAndParseTable();
+  }
 })();

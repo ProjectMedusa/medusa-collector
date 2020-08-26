@@ -11,5 +11,8 @@ module.exports = {
     ecmaVersion: 12,
   },
   rules: {
+    'import/no-dynamic-require': ['off'],
+    'no-await-in-loop': ['off'],
+    'no-restricted-syntax': ['off'],
   },
 };
