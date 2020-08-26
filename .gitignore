@@ -1,4 +1,9 @@
 /node_modules/
+
 .env
+
 /cache/*
+!/cache/.gitkeep
+
 /results/*
+!/results/.gitkeep
