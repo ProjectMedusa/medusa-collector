@@ -7,3 +7,4 @@
 
 /results/*
 !/results/.gitkeep
+!/results/EYKA.json
