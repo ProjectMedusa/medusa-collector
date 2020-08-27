@@ -92,6 +92,8 @@ Please see the included `results/EYKA.json` file
       - [Contents](#contents)
       - [Creating a new entry](#creating-a-new-entry)
     - [Writing a `Parser`](#writing-a-parser)
+      - [Creating a parser file and a class](#creating-a-parser-file-and-a-class)
+      - [Writing parser methods](#writing-parser-methods)
     - [Running the damn thing!](#running-the-damn-thing)
     - [A note about contributions](#a-note-about-contributions)
 
@@ -174,10 +176,12 @@ To create a new source, simply append an object to the `sources` array.
 
 ### Writing a `Parser`
 
-* [Creating a parser file and a class]()
-* [Writing parser methods]()
+* [Creating a parser file and a class](#creating-a-parser-file-and-a-class)
+* [Writing parser methods](#writing-parser-methods)
 
 -------
+
+#### Creating a parser file and a class
 
 Each country has their own parser, because each country for some stupid reason structures their data differently.
 
@@ -210,6 +214,8 @@ module.exports = {
 ```
 
 -------
+
+#### Writing parser methods
 
 Your class ***must*** override a method called `runwayRows(rows)`.
 
