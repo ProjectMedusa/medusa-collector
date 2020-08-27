@@ -247,8 +247,8 @@ node .
 
 ### A note about contributions
 
-To make a contribution, open a PR, **make sure to follow** the included eslint rules when writing your parser.
+To make a contribution, open a PR, and **make sure to follow** the included eslint rules when writing your parser.
 
 If you ever found yourself limited by the functionality [medusa-collector-utils](https://github.com/ProjectMedusa/medusa-collector-utils) gives you are always welcome to override methods from it or open a few issues.
 
-Good luck! :exclamation:
+Good luck:exclamation:
