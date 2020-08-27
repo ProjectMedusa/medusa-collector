@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /* eslint-disable class-methods-use-this */
 const { Parser, phoneticAlphabet } = require('../../medusa-collector-utils');
 
@@ -31,7 +32,7 @@ class EG extends Parser {
     if (/Taxiway|intersection/i.test(result)) {
       const output = phoneticAlphabet
         .stringify(result)
-        .match(/.*(?:taxiways?|holds?|links?|with|intersections?) ([A-Z0-9]+.*?)(?:\.)?/i)[1]
+        .match(/.*(?:taxiways?|holds?|links?|with|intersections?) ([A-Z0-9\s]+.*?)(?:\.)?/i)[1]
         .replace(' ', '');
       return /and/.test(output) ? output.split('AND') : output;
     }
@@ -42,10 +43,10 @@ class EG extends Parser {
     const extractFirstSpan = (html, selector = 'span') => html.querySelectorAll(selector)[0]?.innerHTML;
 
     const ident = extractFirstSpan(runway);
-    const tora = extractFirstSpan(rawTora);
-    const toda = extractFirstSpan(rawToda);
-    const asda = extractFirstSpan(rawAsda);
-    const lda = extractFirstSpan(rawLda);
+    const tora = parseInt(extractFirstSpan(rawTora));
+    const toda = parseInt(extractFirstSpan(rawToda));
+    const asda = parseInt(extractFirstSpan(rawAsda));
+    const lda = parseInt(extractFirstSpan(rawLda));
 
     const dataObject = {
       tora, toda, asda,
