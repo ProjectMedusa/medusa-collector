@@ -2,6 +2,10 @@
 
 This package is used to collect runway, intersection, and obstacle (Soon™) data from eAIPs.
 
+## Coverage
+
+Currently, `MedusaCollector` is able to collect data from ***140*** airports.
+
 ## Concept :question:
 
 * The `parsers` folder:
@@ -82,6 +86,7 @@ Please see the included `results/EYKA.json` file
 ### Table of Contents
 
 - [medusa-collector](#medusa-collector)
+  - [Coverage](#coverage)
   - [Concept :question:](#concept-question)
   - [Contributing :muscle:](#contributing-muscle)
     - [Table of Contents](#table-of-contents)
