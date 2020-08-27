@@ -16,16 +16,26 @@ const letterNumbers = {
 
 class EG extends Parser {
   parseIntersectionFrom(line) {
+    if (line === undefined) {
+      // wrong thing, TODO
+      return null;
+    }
     let result = line.toUpperCase();
     Object.entries(letterNumbers).forEach(([letter, number]) => {
       result = result.replace(letter, number);
     });
 
-    if (/Taxiway|intersection|Take-off/i.test(line)) {
-      return phoneticAlphabet
+    if (/runway/i.test(result)) {
+      return `RWY ${result.match(/runway (\d\d)/i)[1]}`;
+    }
+    if (/Taxiway|intersection/i.test(result)) {
+      const output = phoneticAlphabet
         .stringify(result)
-        .match(/Take(?:-|\s+)off from (?:intersection|Taxiway)? .*([A-Z] ?\d?)+/i)[1]
+        // eslint-disable-next-line max-len
+        // .match(/Take(?:-|\s+)off from (?:intersections?|Taxiway|Taxiways)? (?:with|of) (?:Holding Point|Point|Holding|Hold|Taxiway|)?\s?((?:[A-Z] and [A-Z])|([A-Z].*))+/i)[1]
+        .match(/.*(?:taxiways?|holds?|links?|with) ([A-Z0-9]+.*?)(?:\.)?/i)[1]
         .replace(' ', '');
+      return /and/.test(output) ? output.split('AND') : output;
     }
     return line;
   }
@@ -53,7 +63,6 @@ class EG extends Parser {
         intx: this.parseIntersectionFrom(extractFirstSpan(remarks)),
         ...dataObject,
       };
-
       const intersections = [...this.results[index].intersections, intersection];
       this.results[index] = { ...this.results[index], intersections };
     } else {
