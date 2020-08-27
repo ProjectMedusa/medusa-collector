@@ -29,7 +29,6 @@ class EG extends Parser {
       return `RWY ${result.match(/runway (\d\d)/i)[1]}`;
     }
     if (/Taxiway|intersection/i.test(result)) {
-        .stringify(result));
       const output = phoneticAlphabet
         .stringify(result)
         .match(/.*(?:taxiways?|holds?|links?|with|intersections?) ([A-Z0-9]+.*?)(?:\.)?/i)[1]
