@@ -29,11 +29,10 @@ class EG extends Parser {
       return `RWY ${result.match(/runway (\d\d)/i)[1]}`;
     }
     if (/Taxiway|intersection/i.test(result)) {
+        .stringify(result));
       const output = phoneticAlphabet
         .stringify(result)
-        // eslint-disable-next-line max-len
-        // .match(/Take(?:-|\s+)off from (?:intersections?|Taxiway|Taxiways)? (?:with|of) (?:Holding Point|Point|Holding|Hold|Taxiway|)?\s?((?:[A-Z] and [A-Z])|([A-Z].*))+/i)[1]
-        .match(/.*(?:taxiways?|holds?|links?|with) ([A-Z0-9]+.*?)(?:\.)?/i)[1]
+        .match(/.*(?:taxiways?|holds?|links?|with|intersections?) ([A-Z0-9]+.*?)(?:\.)?/i)[1]
         .replace(' ', '');
       return /and/.test(output) ? output.split('AND') : output;
     }
