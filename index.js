@@ -12,7 +12,7 @@ const aipSources = require('./data/aip-sources.js').sources;
 const currentSource = aipSources.find((source) => source.country === process.env.AOI);
 
 (async () => {
-  await createPage({ headless: false, slowMo: 0, args: ['--user-agent=New User Agent'] });
+  await createPage({ headless: false, slowMo: 0, args: ['--user-agent=New User Agent', '--single-process'] });
   await page().goto(currentSource.menuLink);
 
   // Instantiate an AirportCollector Instance
@@ -23,10 +23,17 @@ const currentSource = aipSources.find((source) => source.country === process.env
 
   // For each airport instantiate a Collector Instance
 
+  console.log(`${airports.length} airports in total`);
+  let i = 0;
   for (const airport of airports) {
-    const parser = new ParserImplementation(airport, currentSource.link);
-    const collector = new Collector(parser);
-
-    await collector.retriveAndParseTable();
+    if (!require('fs').existsSync(`results/${airport}.json`)) {
+      console.log(`[${i}] [${airport}] Proccessing..`);
+      const parser = new ParserImplementation(airport, currentSource.link);
+      const collector = new Collector(parser);
+      await collector.retriveAndParseTable();
+    } else {
+      console.log(`[${i}] [${airport}] Already exists, skipping..`);
+    }
+    i += 1;
   }
 })();
