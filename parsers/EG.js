@@ -91,15 +91,15 @@ class EG extends Parser {
     if (index > -1) {
       // exists, so create an intersection
       const intersection = {
-        intx: this.parseIntersectionFrom(extractFirstSpan(remarks)),
+        ident: this.parseIntersectionFrom(extractFirstSpan(remarks)),
         ...dataObject,
       };
-      const intersections = [...this.results[index].intersections, intersection];
-      this.results[index] = { ...this.results[index], intersections };
+      const intx = [...this.results[index].intx, intersection];
+      this.results[index] = { ...this.results[index], intx };
     } else {
       // does not exist, so create a runway
       this.results.push({
-        ident, ...dataObject, lda, intersections: [],
+        ident, ...dataObject, lda, intx: [],
       });
     }
   }

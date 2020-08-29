@@ -49,14 +49,14 @@ class EY extends Parser {
           toda: toda.innerHTML,
           asda: asda.innerHTML,
           lda: lda.innerHTML,
-          intersections: [],
+          intx: [],
         });
       } else {
         const [intx, tora, toda, asda] = runwayRows;
         this.results[
           this.results.findIndex(findIndex)
-        ].intersections.push({
-          intx: this.intersection(intx.innerHTML),
+        ].intx.push({
+          ident: this.intersection(intx.innerHTML),
           tora: tora.innerHTML,
           toda: toda.innerHTML,
           asda: asda.innerHTML,
