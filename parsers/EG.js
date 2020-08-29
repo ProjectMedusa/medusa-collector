@@ -34,9 +34,38 @@ class EG extends Parser {
         .stringify(result)
         .match(/.*(?:taxiways?|holds?|links?|with|intersections?) ([A-Z0-9\s]+.*?)(?:\.)?/i)[1]
         .replace(' ', '');
-      return /and/.test(output) ? output.split('AND') : output;
+      return /and/i.test(output) ? output.split('AND').map((val) => val.replace(' ', '')) : output;
     }
     return line;
+  }
+
+  parseSlope(string) {
+
+  }
+
+  runwayCharacteristics(rows) {
+    rows.forEach((row) => {
+      const characteristics = row.querySelectorAll('td');
+      const runway = characteristics[0].querySelectorAll('p > span')[0].innerHTML;
+      const rawSlopes = characteristics[6];
+
+      let slope;
+
+      if (/%/.test(rawSlopes.innerHTML)) {
+        const data = rawSlopes.querySelectorAll('span')[0].innerHTML;
+
+        const { slope: rawSlope, dir } = data.split('<br>')[0].match(/(?:RWY )?[0-9L|R|C]+ -?(?<slope>.*)% (?<dir>[up|down]+)/i).groups;
+
+        if (/down/i.test(dir)) slope = parseFloat(`-${rawSlope.replace(' ', '')}`);
+        else if (/up/i.test(dir)) slope = parseFloat(rawSlope.replace(' ', ''));
+      }
+      const resultRwy = this.results.findIndex(({ ident }) => ident === runway);
+      if (resultRwy > -1) {
+        this.results[resultRwy] = { ...this.results[resultRwy], slope };
+      }
+    });
+
+    this.save();
   }
 
   parseRunway([runway, rawTora, rawToda, rawAsda, rawLda, remarks]) {
@@ -78,7 +107,7 @@ class EG extends Parser {
       runwayRows = row.querySelectorAll('td');
       this.parseRunway(runwayRows);
     });
-    this.save();
+    // this.save();
   }
 }
 

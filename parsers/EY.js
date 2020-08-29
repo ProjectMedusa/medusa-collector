@@ -1,10 +1,36 @@
+/* eslint-disable radix */
 /* eslint-disable class-methods-use-this */
-const { Parser } = require('@project-medusa/collector-utils');
+const { Parser } = require('../../medusa-collector-utils');
 
 class EY extends Parser {
   intersection(string) {
     const match = string.match(/From TWY (.*)/);
     return /,/.test(match[1]) ? match[1].split(', ') : match[1];
+  }
+
+  slopes(el) {
+    return el?.innerHTML
+      .split(/<br id=".*?">.*?M: /g)
+      .map((value) => parseFloat(value
+        .replace(/.* M: /, '')
+        .replace('%', '')
+        .replace('</ins>', '')));
+  }
+
+  runwayCharacteristics(rows) {
+    rows.forEach((row) => {
+      const characteristics = row.querySelectorAll('td');
+      const [runway, rawSlopes] = characteristics;
+
+      const resultIndex = this.results.findIndex(({ ident }) => ident === runway.innerHTML);
+      if (resultIndex > -1) {
+        // RETURNS AN ARRAY OF SLOPES
+        const slopes = Math.max(...this.slopes(rawSlopes));
+
+        this.results[resultIndex] = { ...this.results[resultIndex], slopes };
+      }
+    });
+    this.save();
   }
 
   runwayRows(rows) {
@@ -37,7 +63,7 @@ class EY extends Parser {
         });
       }
     });
-    this.save();
+    // this.save();
   }
 }
 

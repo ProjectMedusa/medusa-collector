@@ -16,6 +16,7 @@ module.exports = {
       country: 'EY',
       menuLink:
         `https://www.ead.eurocontrol.int/eadbasic/eais-${session}/XRW43IAS45SGI/EN/2020-06-18-AIRAC/html/eAIP/EY-menu-en-GB.html#`,
+      runwayCharacteristicsTable: 1,
     },
   ],
 };
