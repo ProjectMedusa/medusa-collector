@@ -25,9 +25,9 @@ class EY extends Parser {
       const resultIndex = this.results.findIndex(({ ident }) => ident === runway.innerHTML);
       if (resultIndex > -1) {
         // RETURNS AN ARRAY OF SLOPES
-        const slopes = Math.max(...this.slopes(rawSlopes));
+        const slope = Math.max(...this.slopes(rawSlopes));
 
-        this.results[resultIndex] = { ...this.results[resultIndex], slopes };
+        this.results[resultIndex] = { ...this.results[resultIndex], slope };
       }
     });
     this.save();
