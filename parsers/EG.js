@@ -54,10 +54,13 @@ class EG extends Parser {
       if (/%/.test(rawSlopes.innerHTML)) {
         const data = rawSlopes.querySelectorAll('span')[0].innerHTML;
 
-        const { slope: rawSlope, dir } = data.split('<br>')[0].match(/(?:RWY )?[0-9L|R|C]+ -?(?<slope>.*)% (?<dir>[up|down]+)/i).groups;
-
-        if (/down/i.test(dir)) slope = parseFloat(`-${rawSlope.replace(' ', '')}`);
-        else if (/up/i.test(dir)) slope = parseFloat(rawSlope.replace(' ', ''));
+        data.split('<br>').forEach((item) => {
+          const { slope: rawSlope, dir, rwy } = item.match(/(?:RWY )?(?<rwy>[0-9L|R|C]+) -?(?<slope>.*)% (?<dir>[up|down]+)/i).groups;
+          if (rwy === runway) {
+            if (/down/i.test(dir)) slope = parseFloat(`-${rawSlope.replace(' ', '')}`);
+            else if (/up/i.test(dir)) slope = parseFloat(rawSlope.replace(' ', ''));
+          }
+        });
       }
       const resultRwy = this.results.findIndex(({ ident }) => ident === runway);
       if (resultRwy > -1) {
