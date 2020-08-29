@@ -51,9 +51,9 @@ Please see the included `results/EYKA.json` file
 		"toda": integer,
 		"asda": integer,
 		"lda": integer,
-		"intersections": [
+		"intx": [
 			{
-				"intx": array|string,
+				"ident": array|string,
 				"tora": integer,
 				"toda": integer,
 				"asda": integer
@@ -66,9 +66,9 @@ Please see the included `results/EYKA.json` file
 		"toda": integer,
 		"asda": integer,
 		"lda": integer,
-		"intersections": [
+		"intx": [
 			{
-				"intx": array|string,
+				"ident": array|string,
 				"tora": integer,
 				"toda": integer,
 				"asda": integer
@@ -92,6 +92,7 @@ Please see the included `results/EYKA.json` file
 ### Table of Contents
 
 - [medusa-collector](#medusa-collector)
+  - [Public API](#public-api)
   - [Coverage](#coverage)
   - [Concept :question:](#concept-question)
   - [Contributing :muscle:](#contributing-muscle)
@@ -152,6 +153,7 @@ AOI=EY
   * `country`: 2-letter area code; **AOI**
   * `menuLink`: this is a direct link to the *eAIPs* menu. This is usually found as an `iframe`
   * `link`: this is a *template* link to the *eAIP*.
+  * And it might have a `runwayCharacteristicsTable`: This tells the utils package which table contains the stuff that our parser wants. This is an index. Default value is 0
 
 -------
 
@@ -160,6 +162,10 @@ AOI=EY
 To create a new source, simply append an object to the `sources` array.
 
 ***Note: make sure to include the full URL in your values***
+
+* Finding out the `runwayCharacteristicsTable`:
+  * Scroll down at your airport's *eAIP*, until you see the `RUNWAY PHYSICAL CHARACTERISTICS` table. Usually this section contains 2 HTML tables.
+  * If the slope column is in the first one, then you don't need to write this value out at all, if it's not, then you need to declare this parameter.
 
 * Finding the `link`:
   * Go to your *eAIP*, on the left sidebar find a header containing `AERODROMES`. Click on it to expand the list of covered aerodromes.
@@ -235,9 +241,11 @@ The `runwayRows` method is where most of the bussiness logic of your parser happ
 `runwayRows` should not return anything.
 `runwayRows` should push the results to an array called `this.results`
 
+Another useful method that you must override is `runwayCharasteristics`. This method is responsible for extracting runway slope data. The concept of this method is the same as `runwayRows`
+
 After all of the pushing has stopped (lol) go ahead and call `this.save()`. This saves the runway/intersection data.
 
-***Note: for examples, please see `parsers/EY.js`***
+***Note: for examples, please see `parsers/EG.js`***
 
 -------
 
