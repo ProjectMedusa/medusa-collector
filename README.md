@@ -2,9 +2,15 @@
 
 This package is used to collect runway, intersection, and obstacle (Soon™) data from eAIPs.
 
+## Public API
+
+http://project-medusa.herokuapp.com/api/airports/ICAO
+
 ## Coverage
 
-Currently, `MedusaCollector` is able to collect data from ***140*** airports.
+Currently, `MedusaCollector` is able to collect data from ***128*** airports.
+
+http://project-medusa.herokuapp.com/coverage
 
 ## Concept :question:
 
