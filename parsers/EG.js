@@ -55,7 +55,7 @@ class EG extends Parser {
         const data = rawSlopes.querySelectorAll('span')[0].innerHTML;
 
         data.split('<br>').forEach((item) => {
-          const { slope: rawSlope, dir, rwy } = item.match(/(?:RWY )?(?<rwy>[0-9L|R|C]+) -?(?<slope>.*)% (?<dir>[up|down]+)/i).groups;
+          const { slope: rawSlope, dir, rwy } = item.match(/(?:RWY )?(?<rwy>[0-9L|R|C]+):? -?(?<slope>.*)% .*?(?<dir>[up|down]+)/i).groups;
           if (rwy === runway) {
             if (/down/i.test(dir)) slope = parseFloat(`-${rawSlope.replace(' ', '')}`);
             else if (/up/i.test(dir)) slope = parseFloat(rawSlope.replace(' ', ''));
