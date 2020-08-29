@@ -1,6 +1,6 @@
 /* eslint-disable radix */
 /* eslint-disable class-methods-use-this */
-const { Parser } = require('../../medusa-collector-utils');
+const { Parser } = require('@project-medusa/collector-utils');
 
 class EY extends Parser {
   intersection(string) {

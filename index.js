@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 require('dotenv').config();
 
-const medusaUtils = require('../medusa-collector-utils');
+const medusaUtils = require('@project-medusa/collector-utils');
 
 const { ParserImplementation, parseAerodromeString } = require(`./parsers/${process.env.AOI}`);
 

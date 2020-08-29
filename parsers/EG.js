@@ -1,6 +1,6 @@
 /* eslint-disable radix */
 /* eslint-disable class-methods-use-this */
-const { Parser, phoneticAlphabet } = require('../../medusa-collector-utils');
+const { Parser, phoneticAlphabet } = require('@project-medusa/collector-utils');
 
 const letterNumbers = {
   ONE: 1,
