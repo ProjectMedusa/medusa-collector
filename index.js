@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 require('dotenv').config();
 
-const medusaUtils = require('@project-medusa/collector-utils');
+const medusaUtils = require('../medusa-collector-utils');
 
 const { ParserImplementation, parseAerodromeString } = require(`./parsers/${process.env.AOI}`);
 
@@ -33,6 +33,7 @@ const currentSource = aipSources.find((source) => source.country === process.env
         airport,
         currentSource.link,
         currentSource.runwayCharacteristicsTable,
+        currentSource.intersectionTableTitle,
       );
       const collector = new Collector(parser);
       await collector.retriveAndParseTable();
