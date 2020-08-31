@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable radix */
-const { Parser } = require('../../medusa-collector-utils');
+const { Parser } = require('@project-medusa/collector-utils');
 
 class EV extends Parser {
   extractPorNot(element) {

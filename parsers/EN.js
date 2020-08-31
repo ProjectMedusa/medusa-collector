@@ -1,5 +1,5 @@
 /* eslint-disable radix */
-const { Parser } = require('../../medusa-collector-utils');
+const { Parser } = require('@project-medusa/collector-utils');
 
 class EN extends Parser {
   parseRunway([runway, rawTora, rawToda, rawAsda, rawLda]) {
