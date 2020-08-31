@@ -1,5 +1,4 @@
 /* eslint-disable radix */
-/* eslint-disable class-methods-use-this */
 const { Parser, phoneticAlphabet } = require('@project-medusa/collector-utils');
 
 const letterNumbers = {
@@ -99,7 +98,7 @@ class EG extends Parser {
     } else {
       // does not exist, so create a runway
       this.results.push({
-        ident, ...dataObject, lda, intx: [],
+        ident, ...dataObject, lda, intx: [], slope: null,
       });
     }
   }

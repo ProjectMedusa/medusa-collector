@@ -25,5 +25,11 @@ module.exports = {
       intersectionTableTitle: 'REDUCED DECLARED DISTANCES FOR TAKE OFF',
       runwayCharacteristicsTable: 1,
     },
+    {
+      link: 'https://ais.lgs.lv/eAIPfiles/2020_004_16-JUL-2020/data/2020-07-16-AIRAC/html/eAIP/EV-AD-2.$icao-en-GB.html',
+      country: 'EV',
+      menuLink: 'https://ais.lgs.lv/eAIPfiles/2020_004_16-JUL-2020/data/2020-07-16-AIRAC/html/eAIP/EV-menu-en-GB.html',
+      runwayCharacteristicsTable: 1,
+    },
   ],
 };

@@ -15,5 +15,6 @@ module.exports = {
     'no-await-in-loop': ['off'],
     'no-restricted-syntax': ['off'],
     'global-require': ['off'],
+    'class-methods-use-this': ['off'],
   },
 };

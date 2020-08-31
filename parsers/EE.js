@@ -1,5 +1,4 @@
 /* eslint-disable radix */
-/* eslint-disable class-methods-use-this */
 const { Parser } = require('../../medusa-collector-utils');
 
 class EE extends Parser {
@@ -11,7 +10,7 @@ class EE extends Parser {
 
     // it's always a runway so always push as intx are handled in a diff method
     this.results.push({
-      ident: runway.innerHTML, tora, toda, asda, lda, intx: [],
+      ident: runway.innerHTML, tora, toda, asda, lda, intx: [], slope: null,
     });
   }
 
