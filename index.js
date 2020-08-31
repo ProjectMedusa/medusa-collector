@@ -34,6 +34,7 @@ const currentSource = aipSources.find((source) => source.country === process.env
         currentSource.link,
         currentSource.runwayCharacteristicsTable,
         currentSource.intersectionTableTitle,
+        currentSource.intersectionTable,
       );
       const collector = new Collector(parser);
       await collector.retriveAndParseTable();

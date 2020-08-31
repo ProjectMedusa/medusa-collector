@@ -113,8 +113,6 @@ class EV extends Parser {
               return acc;
             }, 0) / totalDistance;
 
-            console.log(totalDistance, weightedAverage);
-
             this.results[index].slope = Math.round((weightedAverage + Number.EPSILON) * 100) / 100;
           }
         }

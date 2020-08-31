@@ -1,16 +1,10 @@
-# medusa-collector
+# [![Generic badge](http://project-medusa.herokuapp.com/gh-badge)](http://project-medusa.herokuapp.com/coverage) medusa-collector
 
 This package is used to collect runway, intersection, and obstacle (Soon™) data from eAIPs.
 
 ## Public API
 
 http://project-medusa.herokuapp.com/api/airports/ICAO
-
-## Coverage
-
-Currently, `MedusaCollector` is able to collect data from ***128*** airports.
-
-http://project-medusa.herokuapp.com/coverage
 
 ## Concept :question:
 
@@ -91,9 +85,8 @@ Please see the included `results/EYKA.json` file
 
 ### Table of Contents
 
-- [medusa-collector](#medusa-collector)
+- [![Generic badge](https://shields.io/)](#img-srchttpsimgshieldsiobadge3csubject3e-3cstatus3e-3ccolor3esvg-altgeneric-badge)
   - [Public API](#public-api)
-  - [Coverage](#coverage)
   - [Concept :question:](#concept-question)
   - [Contributing :muscle:](#contributing-muscle)
     - [Table of Contents](#table-of-contents)

@@ -31,5 +31,11 @@ module.exports = {
       menuLink: 'https://ais.lgs.lv/eAIPfiles/2020_004_16-JUL-2020/data/2020-07-16-AIRAC/html/eAIP/EV-menu-en-GB.html',
       runwayCharacteristicsTable: 1,
     },
+    {
+      link: 'https://ais.avinor.no/no/AIP/View/92/2020-08-13-AIRAC/html/eAIP/EN-AD-2.$icao-en-GB.html',
+      country: 'EN',
+      menuLink: 'https://ais.avinor.no/no/AIP/View/92/2020-08-13-AIRAC/html/eAIP/EN-menu-en-GB.html',
+      intersectionTable: 1,
+    },
   ],
 };
