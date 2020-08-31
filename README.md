@@ -52,7 +52,8 @@ Please see the included `results/EYKA.json` file
 				"toda": integer,
 				"asda": integer
 			}
-		]
+    ],
+    slope: null|float|integer,
 	},
 	{
 		"ident": string,
@@ -67,7 +68,8 @@ Please see the included `results/EYKA.json` file
 				"toda": integer,
 				"asda": integer
 			}
-		]
+    ],
+    slope: null|float|integer,
   }
   (...)
 ]
