@@ -15,8 +15,8 @@ class EE extends Parser {
     });
   }
 
-  parseIntersection(intx, currentRunway) {
-    const index = this.results.findIndex(({ ident }) => ident === currentRunway);
+  parseIntersection(intx) {
+    const index = this.results.findIndex(({ ident }) => ident === this.currentRunway);
     let intxObj;
 
     if (/[0-9][0-9](?:[L|R|C])?/.test(intx[0].innerHTML)) {
@@ -53,8 +53,7 @@ class EE extends Parser {
       });
     } else {
       // intx is a taxiway (normal intx)
-      console.log(intxObj.ident);
-      const ident = intxObj.ident.match(/.*?(?:<\/acronym>)?(?:&nbsp;|\-)([A-Z0-9]+)(?:&nbsp;|\s)[-–].*/)[1];
+      const ident = intxObj.ident.match(/.*?(?:<\/acronym>)?(?:&nbsp;|\s)([A-Z0-9]+)(?:&nbsp;|\s)[-–].*/)[1];
 
       this.results[index].intx.push({
         ...intxObj,
@@ -72,28 +71,64 @@ class EE extends Parser {
   }
 
   intxRows(rows) {
-    let currentRunway;
-
     rows.forEach((row) => {
       const intxRows = row.querySelectorAll('td');
       if (/[0-9][0-9](?:[L|R|C])?/.test(intxRows[0].innerHTML)) {
         // eslint-disable-next-line prefer-destructuring
-        currentRunway = intxRows[0].innerHTML;
+        this.currentRunway = intxRows[0].innerHTML;
       }
-      this.parseIntersection(intxRows, currentRunway);
+      this.parseIntersection(intxRows);
     });
   }
 
+  parseSlopes(string) {
+    return string
+      .replace(/%/g, '')
+      .replace(/ /g, '')
+      .split('/')
+      .map((item) => parseFloat(item));
+  }
+
+  parseDistances(string) {
+    const result = string
+      .replace(/\(/g, '')
+      .replace(/\)/g, '')
+      .replace(/ <span>m<\/span>/g, '');
+
+    return /\//.test(result)
+      ? result.split(' / ').map((item) => parseInt(item))
+      : result.split(' ').map((item) => parseInt(item));
+  }
+
   runwayCharacteristics(rows) {
-    // rows.forEach((row) => {
-    //   const [runway, rawSlope] = row.querySelectorAll('td');
+    rows.forEach((row) => {
+      const [runway, rawSlope] = row.querySelectorAll('td');
 
-    //   // TIDO
+      const index = this.results.findIndex(({ ident }) => ident === runway.innerHTML);
 
-    //   const index = this.results.findIndex(({ ident }) => ident === runway.innerHTML);
+      let weightedAverage;
+      if (rawSlope.innerHTML !== '<div><span><span>NIL</span></span></div>') {
+        // checked that the slopes are present in the table, continue
 
-    //   this.results[index] = { ...this.results[index], slope };
-    // });
+        const [, rawSlopes, rawDistances] = rawSlope.innerHTML
+          .replace(/<\/?acronym.*?>/g, '')
+          .replace(/&nbsp;/g, ' ')
+          .match(/([-+0-9.%/\s]+)(?:<br.*>)?(\(.*\))/);
+
+        const runwayLen = this.results[index].tora;
+
+        const slopes = this.parseSlopes(rawSlopes);
+        const distances = this.parseDistances(rawDistances);
+
+        weightedAverage = slopes
+          .reduce((acc, slope, i) => (slope * distances[i]) + acc, 0) / runwayLen;
+      }
+
+      this.results[index] = {
+        ...this.results[index],
+        slope: Math.round((weightedAverage + Number.EPSILON) * 100) / 100,
+      };
+    });
 
     this.save();
   }
