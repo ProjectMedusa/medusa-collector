@@ -1,7 +1,8 @@
 const session = process.env.EUROCONTROL_SESSION;
 
 module.exports = {
-  session,
+  session, // <- also TODO, this is completely unused
+  // TODO turn the links into methods without '$icao'
   sources: [
     {
       link:

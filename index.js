@@ -26,6 +26,8 @@ const currentSource = aipSources.find((source) => source.country === process.env
 
   console.log(`${airports.length} airports in total`);
   let i = 0;
+  // used for.. of because it works properly w/ async/await/
+  // SORRY ESLINT!
   for (const airport of airports) {
     if (!require('fs').existsSync(`results/${airport}.json`)) {
       console.log(`[${i}] [${airport}] Proccessing..`);

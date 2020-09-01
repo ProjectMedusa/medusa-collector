@@ -4,6 +4,9 @@ This package is used to collect runway, intersection, and obstacle (Soon™) dat
 
 ## Public API
 
+Coverage: click the badge bext to the repo's title at the top of the readme.
+**Note: clicking on the markers will give you a direct link to the endpoint**
+
 http://project-medusa.herokuapp.com/api/airports/ICAO
 
 ## Concept :question:
@@ -110,7 +113,7 @@ Please see the included `results/EYKA.json` file
 
 * First thing you need to do is fork the repository and clone it to your machine.
 
-* Then copy the `.env.example` to `.env` 
+* Then copy the `.env.example` to `.env`
 
 ```bash
 cp .env.example .env
@@ -121,6 +124,8 @@ cp .env.example .env
 Inside the `.env` file, set the `AOI` value to the area you're interested in working on. In this example we'll use `EY`.
 
 #### Setting the `EUROCONTROL_SESSION`
+
+**Note: You only need to set this if your source is from eurocontrol, if not feel free to skip this step**
 
 To obtain this value, login to [Eurocontrol](https://www.ead.eurocontrol.int/cms-eadbasic/opencms/en/login/), find a random *eAIP* link.  
 Here's mine: [eadbasic/eais-31275888902FF0E51BECC6250B398377/XRW43IAS45SGI/EN/2020-06-18-AIRAC/html/index.html?show=eAIP/EY-AD-2.EYKA-en-GB.html](#)
@@ -148,7 +153,8 @@ AOI=EY
   * `country`: 2-letter area code; **AOI**
   * `menuLink`: this is a direct link to the *eAIPs* menu. This is usually found as an `iframe`
   * `link`: this is a *template* link to the *eAIP*.
-  * And it might have a `runwayCharacteristicsTable`: This tells the utils package which table contains the stuff that our parser wants. This is an index. Default value is 0
+  * And it might have a `runwayCharacteristicsTable`: This tells the utils package which table contains the stuff that our parser wants (the characteristics table). This is an index. Default value is 0
+  * It also may have a `intersectionTable` **OR** a `intersectionTableTitle`: This tells the utils package, which table contains the intersections. The former is meant to tell the index, when the table does not have its own `.Title`. The latter is meant to declare the title of the intersection table.
 
 -------
 
@@ -236,11 +242,13 @@ The `runwayRows` method is where most of the bussiness logic of your parser happ
 `runwayRows` should not return anything.
 `runwayRows` should push the results to an array called `this.results`
 
-Another useful method that you must override is `runwayCharasteristics`. This method is responsible for extracting runway slope data. The concept of this method is the same as `runwayRows`
+`runwayCharasteristics`; this method is responsible for extracting runway slope data. The concept of this method is the same as `runwayRows`
+
+`intxRows`; this method is responsible for extracting the intersections, **IF** it's under a different table than the usual `DECLARED DISTANCES`.
 
 After all of the pushing has stopped (lol) go ahead and call `this.save()`. This saves the runway/intersection data.
 
-***Note: for examples, please see `parsers/EG.js`***
+***Note: for examples, please see `parsers/*.js`***
 
 -------
 
@@ -253,7 +261,7 @@ Here's mine: `AD-2.EYKA`, `AD-2.EYKA1203548679687`, `EYKA1203548679687details`.
 
 Now write a function inside `parseAerodromeString` that only returns the icao code.
 
-Take a look at `parsers/EY.js` again to see how it works.
+Take a look at `parsers/*.js` again to see how it works.
 
 -------
 
